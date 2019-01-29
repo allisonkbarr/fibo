@@ -5,35 +5,33 @@
 // user inputs the n value based on 0 index
 
 function memoizedFibonacci() {
-  let cache = {
-    0: 0,
-    1: 1
-  }
+  let cache = [0, 1]
   
   return function nthFibonacci(n) {
     if (n < 0) {
       return
     }
+    const cacheLength = cache.length;
 
-    if (cache.hasOwnProperty(n)) {
+    if (cacheLength > n) {
       return cache[n]
     }
     
     let previous
     let nextPrevious
-    if (cache.hasOwnProperty(n - 1)) {
+    if (cacheLength === n) {
       previous = cache[n - 1]
     } else {
       previous = nthFibonacci(n - 1)
     }
-    if (cache.hasOwnProperty(n - 2)) {
+    if (cacheLength >= n - 1) {
       nextPrevious = cache[n - 2]
     } else {
       nextPrevious = nthFibonacci(n - 2)
     }
 
     const newResult = previous + nextPrevious
-    cache[n] = newResult
+    cache.push(newResult)
     
     return newResult
   }
