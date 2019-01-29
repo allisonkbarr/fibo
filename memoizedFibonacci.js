@@ -19,7 +19,20 @@ function memoizedFibonacci() {
       return cache[n]
     }
     
-    const newResult = nthFibonacci(n - 1) + nthFibonacci(n - 2)
+    let previous
+    let nextPrevious
+    if (cache.hasOwnProperty(n - 1)) {
+      previous = cache[n - 1]
+    } else {
+      previous = nthFibonacci(n - 1)
+    }
+    if (cache.hasOwnProperty(n - 2)) {
+      nextPrevious = cache[n - 2]
+    } else {
+      nextPrevious = nthFibonacci(n - 2)
+    }
+
+    const newResult = previous + nextPrevious
     cache[n] = newResult
     
     return newResult
